@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FUXMAS 7 - 2025 Schedule</title>
+  <style>
+    :root{
+      --card-bg: rgba(0,0,0,0.65);
+      --accent: #ff9800;
+      --muted-white: rgba(255,255,255,0.9);
+      --corner: 12px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;background:#111;}
+    body{
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color:var(--muted-white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* translucent main container */
+    .wrap{
+      max-width:1100px;
+      margin:36px auto;
+      background:var(--card-bg);
+      padding:22px;
+      border-radius:18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px) saturate(1.05);
+    }
+
+    h1{
+      margin:0 0 18px 0;
+      text-align:center;
+      font-size:1.85rem;
+    }
+
+    /* table */
+    .schedule {
+      width:100%;
+      border-collapse:collapse;
+      margin-bottom:22px;
+      font-size:0.95rem;
+      overflow:hidden;
+      border-radius:10px;
+    }
+    .schedule thead th{
+      background: rgba(255,255,255,0.08);
+      font-weight:700;
+      padding:10px 12px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .schedule tbody td{
+      padding:10px 12px;
+      border-top:1px solid rgba(255,255,255,0.04);
+      text-align:center;
+    }
+    .schedule tbody tr:nth-child(odd){
+      background: rgba(255,255,255,0.01);
+    }
+    .schedule a{
+      color:var(--accent);
+      text-decoration:underline;
+    }
+
+    /* gallery area */
+    .gallery-section{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      align-items:flex-start;
+    }
+
+    .controls{
+      min-width:260px;
+      flex:0 0 260px;
+      background: rgba(255,255,255,0.02);
+      padding:14px;
+      border-radius:12px;
+    }
+    .controls h3{margin:0 0 10px 0;font-size:1.05rem}
+    .upload-btn{
+      display:inline-block;
+      width:100%;
+      padding:10px 12px;
+      margin-bottom:10px;
+      border-radius:10px;
+      border:0;
+      background:var(--accent);
+      color:#000;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .drop-area{
+      border:2px dashed rgba(255,255,255,0.06);
+      padding:14px;
+      border-radius:10px;
+      text-align:center;
+      color:rgba(255,255,255,0.75);
+      font-size:0.9rem;
+      margin-bottom:10px;
+    }
+    .hint{font-size:0.85rem;color:rgba(255,255,255,0.6)}
+
+    /* horizontal scrollable gallery */
+    .gallery {
+      flex:1 1 auto;
+      min-height:180px;
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:12px;
+      display:flex;
+      gap:12px;
+      overflow-x:auto;
+      overflow-y:hidden;
+      align-items:center;
+      scrollbar-width: thin;
+      scroll-behavior:smooth;
+    }
+
+    .thumb{
+      flex:0 0 auto;
+      border-radius:10px;
+      position:relative;
+      display:inline-block;
+      overflow:hidden;
+      min-width:180px;
+      max-width:260px;
+      min-height:120px;
+      background:#222;
+      box-shadow:0 6px 18px rgba(0,0,0,0.6);
+      cursor:pointer;
+    }
+    .thumb img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition: transform .25s ease;
+    }
+    .thumb:hover img{ transform: scale(1.04); }
+
+    .thumb .meta{
+      position:absolute;
+      left:8px; bottom:8px;
+      background:rgba(0,0,0,0.5);
+      padding:6px 8px;
+      border-radius:8px;
+      font-size:0.82rem;
+    }
+
+    .thumb .del {
+      position:absolute;
+      top:8px; right:8px;
+      background:rgba(0,0,0,0.55);
+      border-radius:999px;
+      width:28px;height:28px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:16px;color:#fff;
+      cursor:pointer;
+    }
+
+    /* modal for full view */
+    .modal {
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.7);
+      z-index:1200;
+      padding:20px;
+    }
+    .modal .inner{
+      max-width:95%;
+      max-height:95%;
+      background:#000;
+      border-radius:10px;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal img{ max-width:100%; max-height:100%; object-fit:contain; display:block;}
+    .modal .close{
+      position:absolute; top:22px; right:22px; font-size:20px; color:#fff; cursor:pointer;
+      background:rgba(0,0,0,0.5); padding:8px 10px; border-radius:8px;
+    }
+
+    @media (max-width:880px){
+      .gallery-section { flex-direction:column; }
+      .controls{ width:100%;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main" aria-labelledby="title">
+    <h1 id="title">FUXMAS 7 — 2025 Schedule</h1>
+
+    <!-- table: hyperlinks were extracted from your uploaded Word file and set to open in a new tab -->
+    <table class="schedule" aria-label="FUXMAS schedule">
+      <thead>
+        <tr>
+          <th>Time</th><th>Stop #</th><th>Venue</th><th>Group</th><th>Next Step</th><th>Travel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>11:00</td><td>1</td>
+          <td><a href="https://www.google.com/maps/place/The+Reveley/@-31.9519534,115" target="_blank" rel="noopener noreferrer">The Reveley</a></td>
+          <td>FUXMAS 2</td>
+          <td>11:25 — Walk</td><td>2 min</td>
+        </tr>
+
+        <tr>
+          <td>11:30</td><td>2</td>
+          <td><a href="https://www.google.com/maps/place/The+Island+at+Elizabeth+Quay" target="_blank" rel="noopener noreferrer">The Island at Elizabeth Quay</a></td>
+          <td>FUXMAS 2</td>
+          <td>12:00 — Walk or Blue Cat</td><td>3 min</td>
+        </tr>
+
+        <tr>
+          <td>12:10</td><td>3</td>
+          <td><a href="https://maps.app.goo.gl/J2NHjeiA27Z2RcfU7" target="_blank" rel="noopener noreferrer">The Petition</a></td>
+          <td>FUXMAS 1, 3 &amp; 6</td>
+          <td>12:40 — Bus 24</td><td>3 min + 1 min</td>
+        </tr>
+
+        <tr>
+          <td>13:00</td><td>4</td>
+          <td><a href="https://www.google.com/maps/place/Long+Neck" target="_blank" rel="noopener noreferrer">Long Neck (LUNCH)</a></td>
+          <td>FUXMAS 3</td>
+          <td>14:30 — Uber</td><td></td>
+        </tr>
+
+        <tr>
+          <td>14:40</td><td>5</td>
+          <td><a href="https://www.google.com/maps/place/Blasta+Gastrobrewery" target="_blank" rel="noopener noreferrer">Blasta Brewing</a></td>
+          <td>FUXMAS 2</td>
+          <td>15:15</td><td></td>
+        </tr>
+
+        <tr>
+          <td>15:45</td><td>6</td>
+          <td><a href="https://www.google.com/maps/place/Rocky+Ridge+Burswood" target="_blank" rel="noopener noreferrer">Rocky Ridge</a></td>
+          <td>NEW</td>
+          <td>16:05 — Train</td><td>6 min + 7 min</td>
+        </tr>
+
+        <tr>
+          <td>16:35</td><td>7</td>
+          <td><a href="https://www.google.com/maps/place/Bright+Tank+Brewing+Co" target="_blank" rel="noopener noreferrer">Bright Tank</a></td>
+          <td>FUXMAS 1 &amp; 2</td>
+          <td>16:45 — Walk</td><td>7 min</td>
+        </tr>
+
+        <tr>
+          <td>16:45</td><td>8</td>
+          <td><a href="https://www.google.com/maps/place/The+Royal+on+the+Waterfront" target="_blank" rel="noopener noreferrer">The Royal on the Waterfront</a></td>
+          <td>FUXMAS 2</td>
+          <td>17:15 — Yellow Cat</td><td>4 min + 2 min</td>
+        </tr>
+
+        <tr>
+          <td>17:30</td><td>9</td>
+          <td><a href="https://www.google.com/maps/place/Stories" target="_blank" rel="noopener noreferrer">Stories Pourhouse</a></td>
+          <td>NEW</td>
+          <td>18:00 — Walk</td><td>6 min</td>
+        </tr>
+
+        <tr>
+          <td>18:05</td><td>10</td>
+          <td><a href="https://maps.app.goo.gl/99d29uWpoxhiLN5HA" target="_blank" rel="noopener noreferrer">Glastonbury Bar &amp; Kitchen</a></td>
+          <td>NEW</td>
+          <td>18:35 — Walk</td><td>1 min</td>
+        </tr>
+
+        <tr>
+          <td>18:40</td><td>11</td>
+          <td><a href="https://www.google.com/maps/place/Edward+and+Ida's" target="_blank" rel="noopener noreferrer">Edward and Ida’s</a></td>
+          <td>FUXMAS 6</td>
+          <td>19:10 — Walk</td><td>5 min</td>
+        </tr>
+
+        <tr>
+          <td>19:15</td><td>12</td>
+          <td><a href="https://www.google.com/maps/place/Northbridge+Brewing+Company" target="_blank" rel="noopener noreferrer">Northbridge Brewing Company</a></td>
+          <td>FUXMAS 1</td>
+          <td>19:45 — Walk</td><td>4 min</td>
+        </tr>
+
+        <tr>
+          <td>19:50</td><td>—</td>
+          <td><a href="https://www.google.com/maps/place/Prestige+Kebab+house" target="_blank" rel="noopener noreferrer">Prestige Kebab House</a></td>
+          <td>NOMNOMNOM</td>
+          <td>20:15 — Walk</td><td>3 min</td>
+        </tr>
+
+        <tr>
+          <td>20:30</td><td>13</td>
+          <td><a href="https://www.google.com/maps/place/Joe's+Juice+Joint" target="_blank" rel="noopener noreferrer">Joe’s Juice Joint</a></td>
+          <td>NEW</td>
+          <td>—</td><td></td>
+        </tr>
+
+        <!-- bus route link included where referenced -->
+        <tr>
+          <td colspan="6" style="text-align:left; font-size:0.9rem; padding-top:14px;">
+            Note: Bus route reference — <a href="https://www.transperth.wa.gov.au/Timetables/Details/Bus/24" target="_blank" rel="noopener noreferrer">Transperth Bus 24 timetable</a>.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Gallery / upload area -->
+    <section class="gallery-section" aria-label="Image gallery and controls">
+      <div class="controls" aria-hidden="false">
+        <h3>Add images to the gallery</h3>
+
+        <input id="fileInput" type="file" accept="image/*" multiple style="display:none" />
+        <button class="upload-btn" id="openFileBtn" type="button">Upload images</button>
+
+        <div id="dropArea" class="drop-area" aria-label="Drop images here">
+          Drag &amp; drop images here or click "Upload images"
+        </div>
+
+        <div class="hint">You can upload multiple images. Click a thumbnail to open full-size. Use the ✕ on thumbnails to remove an image.</div>
+      </div>
+
+      <div class="gallery" id="gallery" aria-live="polite" aria-label="Scrollable image gallery">
+        <!-- thumbnails will be appended here -->
+      </div>
+    </section>
+  </div>
+
+  <!-- modal for full-size preview -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="close" id="modalClose" title="Close">✕</div>
+    <div class="inner">
+      <img id="modalImage" alt="Full-size image preview" src="" />
+    </div>
+  </div>
+
+  <script>
+    // ---------- Links and table prepared already ----------
+    // ---------- Gallery logic ----------
+    const fileInput = document.getElementById('fileInput');
+    const openFileBtn = document.getElementById('openFileBtn');
+    const dropArea = document.getElementById('dropArea');
+    const gallery = document.getElementById('gallery');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.getElementById('modalClose');
+
+    openFileBtn.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+    // drag & drop
+    ['dragenter','dragover'].forEach(ev => {
+      dropArea.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropArea.style.borderColor = 'rgba(255,255,255,0.18)'; });
+    });
+    ['dragleave','drop'].forEach(ev => {
+      dropArea.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropArea.style.borderColor = ''; });
+    });
+    dropArea.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files) handleFiles(dt.files);
+    });
+
+    // store images in memory for this session
+    let images = [];
+
+    function handleFiles(fileList){
+      const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          const src = ev.target.result;
+          addImageToGallery(src, file.name);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function addImageToGallery(src, name){
+      const idx = images.length;
+      images.push({ src, name });
+
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      thumb.setAttribute('data-idx', idx);
+      thumb.innerHTML = `
+        <img src="${src}" alt="${escapeHtml(name)}" />
+        <div class="meta">${escapeHtml(name)}</div>
+        <div class="del" title="Remove image">✕</div>
+      `;
+      // click opens modal
+      thumb.querySelector('img').addEventListener('click', () => openModal(src, name));
+      // delete
+      thumb.querySelector('.del').addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        removeThumbnail(thumb);
+      });
+
+      gallery.appendChild(thumb);
+      // scroll the gallery so the newly added thumb is visible
+      thumb.scrollIntoView({behavior:'smooth', inline:'center'});
+    }
+
+    function removeThumbnail(thumb){
+      const idx = Number(thumb.getAttribute('data-idx'));
+      // remove from DOM
+      thumb.remove();
+      // mark removed in images; keeping indexing simple — we won't reindex existing thumbs
+      images[idx] = null;
+    }
+
+    // modal handlers
+    function openModal(src, name){
+      modalImage.src = src;
+      modalImage.alt = name;
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+    function closeModal(){
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      modalImage.src = '';
+    }
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    // small helper to sanitize displayed filenames
+    function escapeHtml(text){
+      return String(text).replace(/[&<>"'`=\/]/g, function(s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','/':'&#x2F;','`':'&#x60;','=':'&#x3D;'})[s];
+      });
+    }
+
+    // Optional: pre-seed gallery with sample images (commented)
+    // addImageToGallery('sample1.jpg', 'sample1.jpg');
+
+  </script>
+</body>
+</html>
