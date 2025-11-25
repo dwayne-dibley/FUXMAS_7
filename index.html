@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>FUXMAS 7, 2025 — Private Supabase Slideshow</title>
 
-<!-- Supabase JS v2 (public CDN) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+<!-- Correct Supabase browser SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
   :root{
@@ -34,59 +34,36 @@
   .btn{padding:10px 12px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
   .btn:hover{filter:brightness(1.05)}
   .row{display:flex;gap:8px}
-  .uploader{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  input[type=file]{display:none}
-  .filelabel{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);cursor:pointer;border:1px dashed rgba(255,255,255,0.03)}
   .note{font-size:0.85rem;color:var(--muted);margin-top:8px}
+  input[type=file]{display:none}
 </style>
 </head>
 <body>
   <div class="container">
+
+    <!-- Title & Empty Table -->
     <div class="card">
       <h1>FUXMAS 7, 2025</h1>
-      <p class="meta">Source doc (local path): <a href="/mnt/data/FUXMAS 7 - 2025.docx" target="_blank" rel="noopener noreferrer">/mnt/data/FUXMAS 7 - 2025.docx</a></p>
 
-      <!-- Reconstructed table (hyperlink targets preserved) -->
-      <div id="tableWrap">
-        <table class="schedule">
-<tr><th>TIME</th><th>TIME</th><th>PINT</th><th>LOCATION</th><th>NOTES</th><th>WALKING</th><th>OTHER</th></tr>
-<tr><td>11:00</td><td>11:00</td><td>1</td><td><a href="https://www.google.com/maps/place/The+Reveley/" target="_blank">The Reveley</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
-<tr><td>11:30</td><td>11:30</td><td></td><td><a href="https://maps.app.goo.gl/PDte6p132LbMhdd2A" target="_blank">Walk</a></td><td></td><td>2 min</td><td></td></tr>
-<tr><td>11:30</td><td>11:30</td><td>2</td><td><a href="https://www.google.com/maps/place/The+Island+at+Elizabeth+Quay/" target="_blank">The Island at Elizabeth Quay</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
-<tr><td>11:55</td><td></td><td></td><td><a href="https://www.google.com/maps/place/Beer+Corner/" target="_blank">Walk and Blue Cat</a></td><td></td><td>3 min</td><td>3 min</td></tr>
-<tr><td>12:00</td><td>3</td><td>3</td><td><a href="https://www.google.com/maps/place/The+Petition/" target="_blank">The Petition</a></td><td>FUXMAS 1, 3 &amp; 6</td><td></td><td></td></tr>
-<tr><td>12:30</td><td></td><td></td><td></td><td>Next one? Leave Petition @1300</td><td>3 min<br>1 min</td><td>12 min</td></tr>
-<tr><td>12:50</td><td>4</td><td></td><td><a href="https://www.google.com/maps/place/Long+Neck/" target="_blank">Long Neck</a></td><td>FUXMAS 3</td><td></td><td></td></tr>
-<tr><td>13:20</td><td></td><td></td><td></td><td>Uber</td><td></td><td>6 min</td></tr>
-<tr><td>13:30</td><td>5, 6</td><td></td><td><a href="https://www.google.com/maps/place/Blasta+Gastrobrewery/" target="_blank">Blasta brewing</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
-<tr><td>14:45</td><td>7</td><td></td><td><a href="https://www.google.com/maps/place/Rocky+Ridge+Burswood/" target="_blank">Rocky Ridge</a></td><td>NEW</td><td></td><td>Train</td></tr>
-<tr><td>15:15</td><td></td><td></td><td></td><td></td><td>6 min<br>3 min</td><td>9 min</td></tr>
-<tr><td>15:35</td><td>8</td><td></td><td><a href="https://www.google.com/maps/place/Stories/" target="_blank">Stories Pourhouse</a></td><td>NEW</td><td></td><td>Walk</td></tr>
-<tr><td>16:10</td><td></td><td></td><td></td><td></td><td></td><td>3 min</td></tr>
-<tr><td>16:15</td><td>9</td><td></td><td><a href="https://www.google.com/maps/place/Ezra+Pound/" target="_blank">Ezra Pound</a></td><td>FUXMAS 6</td><td></td><td>Walk</td></tr>
-<tr><td>16:50</td><td></td><td></td><td></td><td></td><td>2 min</td><td></td></tr>
-<tr><td>16:55</td><td>10</td><td></td><td><a href="https://www.google.com/maps/place/Glastonburys+Bar+%26+Kitchen/" target="_blank">Glastonbury bar and kitchen</a></td><td>NEW</td><td></td><td>Walk</td></tr>
-<tr><td>17:30</td><td></td><td></td><td></td><td></td><td>1 min</td><td></td></tr>
-<tr><td>17:30</td><td>11</td><td></td><td><a href="https://www.google.com/maps/place/Edward+and+Ida's/" target="_blank">Edward and Ida’s</a></td><td>FUXMAS 6</td><td></td><td>Walk</td></tr>
-<tr><td>18:10</td><td></td><td></td><td></td><td></td><td>5 min</td><td></td></tr>
-<tr><td>18:15</td><td>12</td><td></td><td><a href="https://www.google.com/maps/place/Northbridge+Brewing+Company/" target="_blank">Northbridge Brewing Company</a></td><td>FUXMAS 1</td><td></td><td></td></tr>
-<tr><td>18:50</td><td>13</td><td></td><td><a href="https://www.google.com/maps/place/Sir+Henry's/" target="_blank">Sir Henry’s</a></td><td>NEW</td><td></td><td>Walk</td></tr>
-<tr><td>19:30</td><td></td><td></td><td></td><td></td><td>4 min</td><td></td></tr>
-<tr><td>19:35</td><td></td><td></td><td><a href="https://maps.app.goo.gl/iWGqzNUAu2XnYq4ZA" target="_blank">Prestige Kebab House</a></td><td>NOMNOMNOM</td><td></td><td>Walk</td></tr>
-<tr><td>19:55</td><td></td><td></td><td></td><td></td><td>3 min</td><td></td></tr>
-<tr><td>20:00</td><td>14</td><td></td><td><a href="https://www.google.com/maps/place/Joe's+Juice+Joint/" target="_blank">Joe’s Juice Joint</a></td><td>NEW</td><td></td><td></td></tr>
-</table>
-      </div>
+      <table class="schedule">
+        <thead>
+          <tr><th>TIME</th><th>PINT</th><th>LOCATION</th><th>NOTES</th><th>WALKING</th><th>OTHER</th></tr>
+<tr><td>11:00</td><td>1</td>    <td><a href="https://www.google.com/maps/place/The+Reveley/@-31.9519534,115.8408041,14z/data=!3m1!5s0x2a32bb2a2b1cb247:0xa92dfef6a19e60b4!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bb2a2dc5896d:0xc7d718e0609efc2a!8m2!3d-31.9583975!4d115.8574947!16s%2Fg%2F11byx8pl07?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">The Reveley</a></td>                                       <td>FUXMAS 2</td>                           <td></td>               <td></td>       </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="7" style="text-align:center;color:var(--muted)">NO SPOILERS!!! All will be revealed in due course</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- Slideshow & Uploader -->
+    <!-- Slideshow & Upload -->
     <div class="card">
-      <h2>Private Slideshow (Supabase)</h2>
-      <p class="meta">Uploads go to your private Supabase bucket <code>fuxmas-images</code>. Signed URLs are requested so images stay private until displayed. New images appear automatically (every 30s).</p>
+      <h2>Private Slideshow</h2>
+      <p class="meta">Images stored privately in Supabase bucket <code>fuxmas-images</code>.</p>
 
       <div class="slideshow">
-        <div class="viewer" id="viewer" aria-live="polite">
-          <div id="placeholder" style="color:var(--muted);text-align:center;padding:12px">No images yet.</div>
+        <div class="viewer" id="viewer">
+          <div id="placeholder" style="color:var(--muted);padding:12px">No images uploaded yet.</div>
           <img id="slideImg" src="" alt="" style="display:none" />
         </div>
 
@@ -99,168 +76,137 @@
 
           <div class="row">
             <button class="btn" id="reloadBtn">Reload images</button>
-            <button class="btn" id="uploadOpenBtn">Choose file to upload</button>
+            <button class="btn" id="uploadBtn">Upload Image(s)</button>
           </div>
 
           <div class="meta" id="imageCounter">0 images</div>
 
-          <div class="uploader">
-            <label for="fileInput" class="filelabel">Choose files to upload</label>
-            <input id="fileInput" type="file" accept="image/png,image/jpeg" multiple />
-          </div>
-
-          <div class="note">Upload limit per file: 20 MB. Signed URLs expire in 3600s (1 hour).</div>
+          <input id="fileInput" type="file" accept="image/png,image/jpeg" multiple />
+          <div class="note">Max file size: 20 MB. JPG or PNG only.</div>
         </div>
       </div>
+
     </div>
 
-    <footer class="note">Built on Supabase (private bucket). Make sure storage policy allows anon INSERT and SELECT for <code>fuxmas-images</code>.</footer>
   </div>
 
+<!-- FULL WORKING JAVASCRIPT -->
 <script>
-/*
-  CONFIGURATION: Your Supabase project details (provided)
-*/
-const SUPABASE_URL = "https://dmqgpcsubaegmdaptici.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcWdwY3N1YmFlZ21kYXB0aWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODM2OTIsImV4cCI6MjA3OTU1OTY5Mn0.dMbp4f1xBxrBAc1Coh7FV1fTBjiSG3yfBcRerUCS6ko";
+document.addEventListener("DOMContentLoaded", () => {
 
-const BUCKET = "fuxmas-images";
-const SIGNED_URL_EXPIRES = 3600; // seconds (1 hour)
-const IMAGE_REFRESH_MS = 30000;   // 30 seconds
-const SLIDE_INTERVAL_MS = 10000;  // 10 seconds
+  // --- Supabase Setup ---
+  const SUPABASE_URL = "https://dmqgpcsubaegmdaptici.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcWdwY3N1YmFlZ21kYXB0aWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODM2OTIsImV4cCI6MjA3OTU1OTY5Mn0.dMbp4f1xBxrBAc1Coh7FV1fTBjiSG3yfBcRerUCS6ko";
 
-// Initialize Supabase client
-const { createClient } = supabase;
-const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const { createClient } = window.supabase;
+  const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// UI elements
-const slideImg = document.getElementById('slideImg');
-const placeholder = document.getElementById('placeholder');
-const imageCounter = document.getElementById('imageCounter');
-const fileInput = document.getElementById('fileInput');
-const uploadOpenBtn = document.getElementById('uploadOpenBtn');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const reloadBtn = document.getElementById('reloadBtn');
+  const BUCKET = "fuxmas-images";
+  const SIGNED_URL_EXPIRES = 3600;
+  const REFRESH_MS = 30000;
+  const SLIDE_MS = 10000;
 
-let images = []; // array of {name, signedUrl}
-let current = 0;
-let playing = true;
-let slideTimer = null;
-let reloadTimer = null;
+  // --- Elements ---
+  const slideImg = document.getElementById("slideImg");
+  const placeholder = document.getElementById("placeholder");
+  const imageCounter = document.getElementById("imageCounter");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const fileInput = document.getElementById("fileInput");
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const playPauseBtn = document.getElementById("playPauseBtn");
+  const reloadBtn = document.getElementById("reloadBtn");
 
-// --- Helpers ---
-function showPlaceholder() {
-  placeholder.style.display = 'block';
-  slideImg.style.display = 'none';
-  imageCounter.textContent = '0 images';
-}
-function showImage(idx){
-  if(images.length === 0){ showPlaceholder(); return; }
-  current = ((idx % images.length) + images.length) % images.length;
-  slideImg.src = images[current].signedUrl;
-  slideImg.alt = images[current].name;
-  slideImg.style.display = 'block';
-  placeholder.style.display = 'none';
-  imageCounter.textContent = `${current+1} / ${images.length}`;
-}
+  let images = [];
+  let current = 0;
+  let playing = true;
 
-// --- Storage: list files and create signed urls ---
-async function refreshImageList(){
-  try {
-    // list files in the bucket root
-    const { data, error, status } = await supabaseClient.storage.from(BUCKET).list('', {limit: 100, sortBy: { column: 'name', order: 'asc' }});
-    if (error && status !== 406) { console.error('List error', error); return; }
-    if (!data || data.length === 0) { images = []; showPlaceholder(); return; }
+  function showPlaceholder() {
+    placeholder.style.display = "block";
+    slideImg.style.display = "none";
+    imageCounter.textContent = "0 images";
+  }
 
-    // filter to PNG/JPG/JPEG
+  function showImage(idx) {
+    if (images.length === 0) { showPlaceholder(); return; }
+    current = (idx + images.length) % images.length;
+    slideImg.src = images[current].signedUrl;
+    slideImg.style.display = "block";
+    placeholder.style.display = "none";
+    imageCounter.textContent = `${current+1} / ${images.length}`;
+  }
+
+  async function refreshImages() {
+    const { data, error } = await supabaseClient.storage
+      .from(BUCKET)
+      .list("", { limit: 500 });
+
+    if (error || !data) { images = []; showPlaceholder(); return; }
+
     const files = data.filter(f => /\.(png|jpe?g)$/i.test(f.name));
-    // For each file we ask Supabase for a signed URL
-    const signedPromises = files.map(async f => {
-      // createSignedUrl requires SELECT permission on objects for the anon role (see notes).
-      const { data: signedData, error: signErr } = await supabaseClient.storage.from(BUCKET).createSignedUrl(f.name, SIGNED_URL_EXPIRES);
-      if (signErr) {
-        console.warn('createSignedUrl error for', f.name, signErr);
-        return null;
-      }
-      return { name: f.name, signedUrl: signedData.signedUrl, updated_at: f.updated_at || '' };
-    });
+    const signed = await Promise.all(
+      files.map(async f => {
+        const { data: signedData, error: signErr } =
+          await supabaseClient.storage.from(BUCKET)
+            .createSignedUrl(f.name, SIGNED_URL_EXPIRES);
+        if (signErr) return null;
+        return { name: f.name, signedUrl: signedData.signedUrl };
+      })
+    );
 
-    const signedResults = await Promise.all(signedPromises);
-    images = signedResults.filter(Boolean);
-    // sort by name (or updated_at) if you prefer:
-    images.sort((a,b) => a.name.localeCompare(b.name));
-    if(images.length === 0) { showPlaceholder(); return; }
-    // If current index out of range, reset to 0
-    if (current >= images.length) current = 0;
-    showImage(current);
-  } catch (err) {
-    console.error('refreshImageList error', err);
+    images = signed.filter(Boolean);
+    if (images.length === 0) showPlaceholder();
+    else showImage(current);
   }
-}
 
-// --- Uploading ---
-async function uploadFiles(fileList){
-  if(!fileList || fileList.length === 0) return;
-  for(const file of fileList){
-    // Limit file size to 20 MB in client
-    if(file.size > 20 * 1024 * 1024){ alert(`File ${file.name} too large (max 20MB).`); continue; }
+  async function uploadFiles(files){
+    for (const file of files) {
+      if (file.size > 20*1024*1024) { alert("Too large (20 MB max)"); continue; }
 
-    // create a safe filename with timestamp prefix to avoid collisions
-    const timestamp = Date.now();
-    const safeName = `${timestamp}__${file.name.replace(/\s+/g,'_')}`;
+      const safeName = `${Date.now()}__${file.name.replace(/\s+/g,"_")}`;
+      const { error } = await supabaseClient.storage
+        .from(BUCKET)
+        .upload(safeName, file);
 
-    try {
-      const { data, error } = await supabaseClient.storage.from(BUCKET).upload(safeName, file, {
-        cacheControl: '3600',
-        upsert: false
-      });
-      if (error) {
-        console.error('Upload error', error);
-        alert('Upload failed: ' + (error.message || 'unknown'));
-      } else {
-        // Optionally refresh the list immediately after successful upload
-        await refreshImageList();
-      }
-    } catch (err) {
-      console.error('uploadFiles error', err);
+      if (error) alert("Upload failed: " + error.message);
     }
+    await refreshImages();
   }
-}
 
-// --- Slideshow controls ---
-function nextImage(){ if(images.length) showImage(current+1); }
-function prevImage(){ if(images.length) showImage(current-1); }
-function startSlideshow(){ stopSlideshow(); slideTimer = setInterval(nextImage, SLIDE_INTERVAL_MS); playing = true; playPauseBtn.textContent = 'Pause'; }
-function stopSlideshow(){ if(slideTimer){ clearInterval(slideTimer); slideTimer = null; } playing = false; playPauseBtn.textContent = 'Play'; }
-function togglePlay(){ if(playing) stopSlideshow(); else startSlideshow(); }
+  // --- Controls ---
+  nextBtn.addEventListener("click", () => showImage(current+1));
+  prevBtn.addEventListener("click", () => showImage(current-1));
 
-// UI hooks
-nextBtn.addEventListener('click', () => { nextImage(); if(playing){ stopSlideshow(); startSlideshow(); } });
-prevBtn.addEventListener('click', () => { prevImage(); if(playing){ stopSlideshow(); startSlideshow(); } });
-playPauseBtn.addEventListener('click', togglePlay);
-reloadBtn.addEventListener('click', refreshImageList);
+  playPauseBtn.addEventListener("click", () => {
+    playing = !playing;
+    playPauseBtn.textContent = playing ? "Pause" : "Play";
+  });
 
-// file chooser UI
-uploadOpenBtn.addEventListener('click', ()=> fileInput.click());
-fileInput.addEventListener('change', (ev) => {
-  const files = Array.from(ev.target.files || []);
-  const imagesOnly = files.filter(f => /\.(png|jpe?g)$/i.test(f.name));
-  if(imagesOnly.length === 0) { alert('Select PNG or JPG/JPEG files'); return; }
-  uploadFiles(imagesOnly);
-  // clear input so same files can be selected again if needed
-  ev.target.value = '';
-});
+  reloadBtn.addEventListener("click", refreshImages);
 
-// initialization
-(async function init(){
+  // Upload
+  uploadBtn.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", async e => {
+    const files = [...e.target.files]
+      .filter(f => /\.(png|jpe?g)$/i.test(f.name));
+    if (!files.length) { alert("Only JPG/PNG allowed"); return; }
+    await uploadFiles(files);
+    e.target.value = "";
+  });
+
+  // --- Initial Load ---
   showPlaceholder();
-  await refreshImageList();
-  startSlideshow();
-  // auto refresh the list every IMAGE_REFRESH_MS
-  reloadTimer = setInterval(refreshImageList, IMAGE_REFRESH_MS);
-})();
+  refreshImages();
+
+  // Auto-refresh image list
+  setInterval(refreshImages, REFRESH_MS);
+
+  // Auto-advance slideshow
+  setInterval(() => { if (playing) showImage(current+1); }, SLIDE_MS);
+
+});
 </script>
+
 </body>
 </html>
