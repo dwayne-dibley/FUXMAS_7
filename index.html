@@ -2,8 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FUXMAS 7, 2025</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FUXMAS 7, 2025 — Private Supabase Slideshow</title>
+
+<!-- Supabase JS v2 (public CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
 
 <style>
   :root{
@@ -13,164 +16,250 @@
     --muted:#9fb0c8;
     --accent:#ffca28;
   }
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text);margin:0;padding:24px;line-height:1.3}
-  h1{font-size:1.6rem;margin:0 0 12px}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:var(--text);margin:0;padding:20px;line-height:1.35}
   .container{max-width:1100px;margin:0 auto}
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6);margin-bottom:18px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.6);margin-bottom:18px}
+  h1{margin:0 0 8px;font-size:1.5rem}
+  .meta{color:var(--muted);font-size:0.9rem;margin-bottom:12px}
   table.schedule{width:100%;border-collapse:collapse;font-size:0.95rem}
   table.schedule th, table.schedule td{padding:8px 10px;border-bottom:1px dashed rgba(255,255,255,0.03);text-align:left}
   table.schedule th{background:rgba(255,255,255,0.02);font-weight:600;color:var(--muted)}
-  a { color: var(--accent); text-decoration: none; }
+  a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
 
   .slideshow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-  .viewer{flex:1 1 600px;height:420px;background:#081018;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+  .viewer{flex:1 1 600px;height:480px;background:#081018;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
   .viewer img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-  .controls{display:flex;flex-direction:column;gap:8px;min-width:220px}
+  .controls{display:flex;flex-direction:column;gap:8px;min-width:230px}
   .btn{padding:10px 12px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text);border:1px solid rgba(255,255,255,0.03);cursor:pointer}
   .btn:hover{filter:brightness(1.05)}
   .row{display:flex;gap:8px}
-  .meta{font-size:0.9rem;color:var(--muted);margin-top:8px}
+  .uploader{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  input[type=file]{display:none}
+  .filelabel{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);cursor:pointer;border:1px dashed rgba(255,255,255,0.03)}
+  .note{font-size:0.85rem;color:var(--muted);margin-top:8px}
 </style>
 </head>
-
 <body>
-<div class="container">
+  <div class="container">
+    <div class="card">
+      <h1>FUXMAS 7, 2025</h1>
+      <p class="meta">Source doc (local path): <a href="/mnt/data/FUXMAS 7 - 2025.docx" target="_blank" rel="noopener noreferrer">/mnt/data/FUXMAS 7 - 2025.docx</a></p>
 
-  <!-- Schedule card -->
-  <div class="card">
-    <h1>FUXMAS 7, 2025</h1>
-
-    <!-- Table reconstructed from DOCX: -->
-    <table class="schedule">
-<tr><th>TIME</th> <th>PINT</th> <th>LOCATION</th>                                                                                                       <th>NOTES</th>                              <th>WALKING</th>        <th>OTHER</th>  </tr>
-<tr><td>11:00</td><td>1</td>    <td><a href="https://www.google.com/maps/place/The+Reveley/@-31.9519534,115.8408041,14z/data=!3m1!5s0x2a32bb2a2b1cb247:0xa92dfef6a19e60b4!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bb2a2dc5896d:0xc7d718e0609efc2a!8m2!3d-31.9583975!4d115.8574947!16s%2Fg%2F11byx8pl07?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">The Reveley</a></td>                                       <td>FUXMAS 2</td>                           <td></td>               <td></td>       </tr>
-<tr><td>11:30</td><td></td>     <td><a href="https://maps.app.goo.gl/PDte6p132LbMhdd2A">Walk</a></td>                                                   <td></td>                                   <td>2 min</td>          <td></td>       </tr>
-<tr><td>11:30</td><td>2</td>    <td><a href="https://www.google.com/maps/place/The+Island+at+Elizabeth+Quay/@-31.9587583,115.854568,17z/data=!4m6!3m5!1s0x2a32bb2bb6018909:0xc58691130ddd2776!8m2!3d-31.9591275!4d115.8566239!16s%2Fg%2F11c1n6xwgj?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">The Island at Elizabeth Quay</a></td>     <td>FUXMAS 2</td>                           <td></td>               <td></td>       </tr>
-<tr><td>11:55</td><td></td>     <td><a href="https://www.google.com/maps/dir/The+Island+at+Elizabeth+Quay,+Elizabeth+Quay,+1+Valdura+Pl,+Perth+WA+6000/Petition,+State+Buildings,+Barrack+Street,+Perth+WA/@-31.9570932,115.8559103,17z/data=!3m1!5s0x2a32bad627803545:0xef5253404400b94d!4m19!4m18!1m5!1m1!1s0x2a32bb2bb6018909:0xc58691130ddd2776!2m2!1d115.8566239!2d-31.9591275!1m5!1m1!1s0x2a32bb29d9c44413:0x2ee11cc961213eb4!2m2!1d115.8601202!2d-31.9554664!2m3!6e1!7e2!8j1764332100!3e3!5i1?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D">Walk and Blue Cat</a></td>                                 <td></td>                                   <td>3 min</td>          <td>3 min</td>  </tr>
-<tr><td>12:00</td><td>3</td>    <td><a href="https://www.google.com/maps/place/Beer+Corner/@-31.9555222,115.8596998,21z/data=!3m1!5s0x2a32bad627803545:0xef5253404400b94d!4m6!3m5!1s0x2a32bb317780b877:0x543ffa90dc7cdd49!8m2!3d-31.9555222!4d115.8599974!16s%2Fg%2F11j2ynhcy0?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D">The Petition</a></td>                                     <td>FUXMAS 1, 3 &amp; 6</td>                    <td></td>               <td></td>       </tr>
-<tr><td>12:30</td><td></td>     <td><a href="https://maps.app.goo.gl/bZKJ61qrzA1NBEkm7">Bus 24</a></td>                                                 <td>Next one? Leave<br>Petition @1300</td>  <td>3 min<br>1 min</td> <td>12 min</td> </tr>
-<tr><td>12:50</td><td>4</td>    <td><a href="https://www.google.com/maps/place/Long+Neck/@-31.951937,115.8202048,13z/data=!3m1!5s0x2a32bb108ccbc175:0x81d77c71a368d409!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bbbdb2de5c7f:0x8e7ebfc71edd6963!8m2!3d-31.9648532!4d115.878114!16s%2Fg%2F11rfdm7hs2?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Long Neck</a></td>                                           <td>FUXMAS 3</td>                           <td></td>               <td></td>       </tr>
-<tr><td>13:20</td><td></td>     <td>Uber</td>                                                                                                           <td></td>                                   <td></td>               <td>6 min</td>  </tr>
-<tr><td>13:30</td><td>5, 6</td> <td><a href="https://www.google.com/maps/place/Blasta+Gastrobrewery/@-31.951937,115.8202048,13z/data=!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bbbe0004eb83:0xe6bafe80b435943f!8m2!3d-31.9599306!4d115.9008322!16s%2Fg%2F11vqgvx8sw?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Blasta brewing</a></td>                           <td>FUXMAS 2</td>                           <td></td>               <td></td>       </tr>
-<tr><td>14:45</td><td>7</td>    <td><a href="https://www.google.com/maps/place/Rocky+Ridge+Burswood/@-31.951937,115.8202048,13z/data=!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bb20b4a5d209:0x25c5fb2c7d2a54c!8m2!3d-31.9584178!4d115.900555!16s%2Fg%2F11xvlq7vtx?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Rocky Ridge</a></td>                              <td>NEW</td>                                <td></td>               <td></td>       </tr>
-<tr><td>15:15</td><td></td>     <td><a href="https://www.google.com/maps/dir/Rocky+Ridge+Burswood,+84+Goodwood+Parade,+Burswood+WA/Stories,+376%2F420+Wellington+St,+Perth+WA+6000/@-31.9581168,115.8581698,14z/am=t/data=!4m18!4m17!1m5!1m1!1s0x2a32bb20b4a5d209:0x25c5fb2c7d2a54c!2m2!1d115.900555!2d-31.9584178!1m5!1m1!1s0x2a32bb28cea3b57d:0x9c2431aa3b21fc7e!2m2!1d115.8584404!2d-31.9506053!2m3!6e0!7e2!8j1764342900!3e3?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D">Train</a></td>                                                       <td></td>                                   <td>6 min<br>3 min</td> <td>9 min</td>  </tr>
-<tr><td>15:35</td><td>8</td>    <td><a href="https://www.google.com/maps/place/Stories/@-31.950151,115.8559089,16.5z/data=!4m6!3m5!1s0x2a32bb28cea3b57d:0x9c2431aa3b21fc7e!8m2!3d-31.9506053!4d115.8584404!16s%2Fg%2F11y49j20_l?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Stories Pourhouse</a></td>                                     <td>NEW</td>                                <td></td>               <td></td>       </tr>
-<tr><td>16:10</td><td></td>     <td><a href="https://maps.app.goo.gl/KBGFs4AQC39MGv97A">Walk</a></td>                                                                            <td></td>                                   <td>3 min</td>          <td></td>       </tr>
-<tr><td>16:15</td><td>9</td>    <td><a href="https://www.google.com/maps/place/Ezra+Pound/@-31.9519534,115.8408041,14z/data=!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bad15cdbb585:0x412ac8c3e25e6f3e!8m2!3d-31.9491826!4d115.8588449!16s%2Fg%2F1tgfsd_v?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Ezra Pound</a></td>                                         <td>FUXMAS 6</td>                           <td></td>               <td></td>       </tr>
-<tr><td>16:50</td><td></td>     <td><a href="https://maps.app.goo.gl/A64aMSbD8zCdv5sG7">Walk</a></td>                                                                            <td></td>                                   <td>2 min</td>          <td></td>       </tr>
-<tr><td>16:55</td><td>10</td>   <td><a href="https://www.google.com/maps/place/Glastonburys+Bar+%26+Kitchen/@-31.9487792,115.8586572,17.25z/data=!4m14!1m7!3m6!1s0x2a32bb28cea3b57d:0x9c2431aa3b21fc7e!2sStories!8m2!3d-31.9506053!4d115.8584404!16s%2Fg%2F11y49j20_l!3m5!1s0x2a32bba5154c4013:0xc36c931d23ef4129!8m2!3d-31.947852!4d115.8599285!16s%2Fg%2F11ybxsc_kz?authuser=0&entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D">Glastonbury bar and kitchen</a></td>      <td>NEW</td>                                <td></td>               <td></td>       </tr>
-<tr><td>17:30</td><td></td>     <td><a href="https://maps.app.goo.gl/zpHKeVCcELFYjw5B8">Walk</a></td>                                                                            <td></td>                                   <td>1 min</td>          <td></td>       </tr>
-<tr><td>17:30</td><td>11</td>   <td><a href="https://www.google.com/maps/place/Edward+and+Ida's/@-31.951937,115.8202048,13z/data=!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bb6e896f04d3:0xe6794e31b13b421a!8m2!3d-31.9475277!4d115.8601306!16s%2Fg%2F11sk7p3c25?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Edward and Ida’s</a></td>                             <td>FUXMAS 6</td>                           <td></td>               <td></td>       </tr>
-<tr><td>18:10</td><td></td>     <td><a href="https://maps.app.goo.gl/oA5UsU2ccRiihw18A">Walk</a></td>                                                                            <td></td>                                   <td>5 min</td>          <td></td>       </tr>
-<tr><td>18:15</td><td>12</td>   <td><a href="https://www.google.com/maps/place/Northbridge+Brewing+Company/@-31.9474801,115.8192131,14z/data=!4m10!1m3!11m2!2sU3UmzSaCRyyn_0DuMe_RCg!3e3!3m5!1s0x2a32bad23b1c6c63:0x2fd4f5c1888b1dc4!8m2!3d-31.9474801!4d115.8573219!16s%2Fg%2F11bbww_wyr?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Northbridge Brewing Company</a></td>       <td>FUXMAS 1</td>                           <td></td>               <td></td>       </tr>
-<tr><td>18:50</td><td>13</td>   <td><a href="https://www.google.com/maps/place/Sir+Henry's/@-31.947417,115.8556759,19z/data=!4m17!1m9!2m8!1sBars!3m5!2sJoe's+Juice+Joint!3s0x2a32bad11402b5f5:0x684bfda1da27ce90!4m2!1d115.8601117!2d-31.948517!6e5!3m6!1s0x2a32bb84d0dd04f3:0xceab8560b4feb7f0!8m2!3d-31.947417!4d115.8568668!15sCgRCYXJzWgYiBGJhcnOSAQlpcmlzaF9wdWKaASRDaGREU1VoTk1HOW5TMFZKUTBGblNVUmtkMkZIUm5aQlJSQUKqATYQASoIIgRiYXJzKAAyHhABIhrCnwOeg471m0unc4LJtFstzTvf0V5kZO59mjIIEAIiBGJhcnPgAQD6AQQINhA5!16s%2Fg%2F11vjhf37px?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Sir Henry’s</a></td>                                       <td>NEW</td>                                <td></td>               <td></td>       </tr>
-<tr><td>19:30</td><td></td>     <td><a href="https://maps.app.goo.gl/iWGqzNUAu2XnYq4ZA">Walk</a></td>                                                                            <td></td>                                   <td>4 min</td>          <td></td>       </tr>
-<tr><td>19:35</td><td></td>     <td><a href="https://www.google.com/maps/place/Prestige+Kebab+house/@-31.9488968,115.8580043,19z/data=!3m1!4b1!4m6!3m5!1s0x2a32bad166891741:0xd57a86209b211ff2!8m2!3d-31.9488968!4d115.8586494!16s%2Fg%2F1thjqw_c?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Prestige Kebab House</a></td>                                   <td>NOMNOMNOM</td>                          <td></td>               <td></td>       </tr>
-<tr><td>19:55</td><td></td>     <td><a href="https://maps.app.goo.gl/J2NHjeiA27Z2RcfU7">Walk</a></td>                                                                            <td></td>                                   <td>3 min</td>          <td></td>       </tr>
-<tr><td>20:00</td><td>14</td>   <td><a href="https://www.google.com/maps/place/Joe's+Juice+Joint/@-31.948517,115.8575314,17z/data=!3m2!4b1!5s0x2a32bad111587f27:0x47fc8658494c4a9a!4m6!3m5!1s0x2a32bad11402b5f5:0x684bfda1da27ce90!8m2!3d-31.948517!4d115.8601117!16s%2Fg%2F11b7lq3trl?authuser=0&entry=ttu&g_ep=EgoyMDI1MTEwNC4xIKXMDSoASAFQAw%3D%3D">Joe’s Juice Joint</a></td>                           <td>NEW</td>                                <td></td>               <td></td>       </tr>
+      <!-- Reconstructed table (hyperlink targets preserved) -->
+      <div id="tableWrap">
+        <table class="schedule">
+<tr><th>TIME</th><th>TIME</th><th>PINT</th><th>LOCATION</th><th>NOTES</th><th>WALKING</th><th>OTHER</th></tr>
+<tr><td>11:00</td><td>11:00</td><td>1</td><td><a href="https://www.google.com/maps/place/The+Reveley/" target="_blank">The Reveley</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
+<tr><td>11:30</td><td>11:30</td><td></td><td><a href="https://maps.app.goo.gl/PDte6p132LbMhdd2A" target="_blank">Walk</a></td><td></td><td>2 min</td><td></td></tr>
+<tr><td>11:30</td><td>11:30</td><td>2</td><td><a href="https://www.google.com/maps/place/The+Island+at+Elizabeth+Quay/" target="_blank">The Island at Elizabeth Quay</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
+<tr><td>11:55</td><td></td><td></td><td><a href="https://www.google.com/maps/place/Beer+Corner/" target="_blank">Walk and Blue Cat</a></td><td></td><td>3 min</td><td>3 min</td></tr>
+<tr><td>12:00</td><td>3</td><td>3</td><td><a href="https://www.google.com/maps/place/The+Petition/" target="_blank">The Petition</a></td><td>FUXMAS 1, 3 &amp; 6</td><td></td><td></td></tr>
+<tr><td>12:30</td><td></td><td></td><td></td><td>Next one? Leave Petition @1300</td><td>3 min<br>1 min</td><td>12 min</td></tr>
+<tr><td>12:50</td><td>4</td><td></td><td><a href="https://www.google.com/maps/place/Long+Neck/" target="_blank">Long Neck</a></td><td>FUXMAS 3</td><td></td><td></td></tr>
+<tr><td>13:20</td><td></td><td></td><td></td><td>Uber</td><td></td><td>6 min</td></tr>
+<tr><td>13:30</td><td>5, 6</td><td></td><td><a href="https://www.google.com/maps/place/Blasta+Gastrobrewery/" target="_blank">Blasta brewing</a></td><td>FUXMAS 2</td><td></td><td></td></tr>
+<tr><td>14:45</td><td>7</td><td></td><td><a href="https://www.google.com/maps/place/Rocky+Ridge+Burswood/" target="_blank">Rocky Ridge</a></td><td>NEW</td><td></td><td>Train</td></tr>
+<tr><td>15:15</td><td></td><td></td><td></td><td></td><td>6 min<br>3 min</td><td>9 min</td></tr>
+<tr><td>15:35</td><td>8</td><td></td><td><a href="https://www.google.com/maps/place/Stories/" target="_blank">Stories Pourhouse</a></td><td>NEW</td><td></td><td>Walk</td></tr>
+<tr><td>16:10</td><td></td><td></td><td></td><td></td><td></td><td>3 min</td></tr>
+<tr><td>16:15</td><td>9</td><td></td><td><a href="https://www.google.com/maps/place/Ezra+Pound/" target="_blank">Ezra Pound</a></td><td>FUXMAS 6</td><td></td><td>Walk</td></tr>
+<tr><td>16:50</td><td></td><td></td><td></td><td></td><td>2 min</td><td></td></tr>
+<tr><td>16:55</td><td>10</td><td></td><td><a href="https://www.google.com/maps/place/Glastonburys+Bar+%26+Kitchen/" target="_blank">Glastonbury bar and kitchen</a></td><td>NEW</td><td></td><td>Walk</td></tr>
+<tr><td>17:30</td><td></td><td></td><td></td><td></td><td>1 min</td><td></td></tr>
+<tr><td>17:30</td><td>11</td><td></td><td><a href="https://www.google.com/maps/place/Edward+and+Ida's/" target="_blank">Edward and Ida’s</a></td><td>FUXMAS 6</td><td></td><td>Walk</td></tr>
+<tr><td>18:10</td><td></td><td></td><td></td><td></td><td>5 min</td><td></td></tr>
+<tr><td>18:15</td><td>12</td><td></td><td><a href="https://www.google.com/maps/place/Northbridge+Brewing+Company/" target="_blank">Northbridge Brewing Company</a></td><td>FUXMAS 1</td><td></td><td></td></tr>
+<tr><td>18:50</td><td>13</td><td></td><td><a href="https://www.google.com/maps/place/Sir+Henry's/" target="_blank">Sir Henry’s</a></td><td>NEW</td><td></td><td>Walk</td></tr>
+<tr><td>19:30</td><td></td><td></td><td></td><td></td><td>4 min</td><td></td></tr>
+<tr><td>19:35</td><td></td><td></td><td><a href="https://maps.app.goo.gl/iWGqzNUAu2XnYq4ZA" target="_blank">Prestige Kebab House</a></td><td>NOMNOMNOM</td><td></td><td>Walk</td></tr>
+<tr><td>19:55</td><td></td><td></td><td></td><td></td><td>3 min</td><td></td></tr>
+<tr><td>20:00</td><td>14</td><td></td><td><a href="https://www.google.com/maps/place/Joe's+Juice+Joint/" target="_blank">Joe’s Juice Joint</a></td><td>NEW</td><td></td><td></td></tr>
 </table>
-  </div>
-
-  <!-- Slideshow card -->
-  <div class="card">
-    <h2>Slideshow</h2>
-    <p class="meta">Images appear automatically from the GitHub repo folder. Updated every 30 seconds.</p>
-
-    <div class="slideshow">
-      <div class="viewer">
-        <div id="placeholder" style="color:#888">No images loaded yet.</div>
-        <img id="slideImg" src="" alt="" style="display:none">
-      </div>
-
-      <div class="controls">
-        <div class="row">
-          <button class="btn" id="prevBtn">⟨ Prev</button>
-          <button class="btn" id="playPauseBtn">Pause</button>
-          <button class="btn" id="nextBtn">Next ⟩</button>
-        </div>
-
-        <div class="row">
-          <button class="btn" id="reloadBtn">Reload images</button>
-          <button class="btn" onclick="window.open('https://github.com/dwayne-dibley/FUXMAS_7/upload/main/','_blank','noopener')">Upload to GitHub</button>
-        </div>
-
-        <div class="meta" id="imageCounter">0 images</div>
       </div>
     </div>
+
+    <!-- Slideshow & Uploader -->
+    <div class="card">
+      <h2>Private Slideshow (Supabase)</h2>
+      <p class="meta">Uploads go to your private Supabase bucket <code>fuxmas-images</code>. Signed URLs are requested so images stay private until displayed. New images appear automatically (every 30s).</p>
+
+      <div class="slideshow">
+        <div class="viewer" id="viewer" aria-live="polite">
+          <div id="placeholder" style="color:var(--muted);text-align:center;padding:12px">No images yet.</div>
+          <img id="slideImg" src="" alt="" style="display:none" />
+        </div>
+
+        <div class="controls">
+          <div class="row">
+            <button class="btn" id="prevBtn">⟨ Prev</button>
+            <button class="btn" id="playPauseBtn">Pause</button>
+            <button class="btn" id="nextBtn">Next ⟩</button>
+          </div>
+
+          <div class="row">
+            <button class="btn" id="reloadBtn">Reload images</button>
+            <button class="btn" id="uploadOpenBtn">Choose file to upload</button>
+          </div>
+
+          <div class="meta" id="imageCounter">0 images</div>
+
+          <div class="uploader">
+            <label for="fileInput" class="filelabel">Choose files to upload</label>
+            <input id="fileInput" type="file" accept="image/png,image/jpeg" multiple />
+          </div>
+
+          <div class="note">Upload limit per file: 20 MB. Signed URLs expire in 3600s (1 hour).</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="note">Built on Supabase (private bucket). Make sure storage policy allows anon INSERT and SELECT for <code>fuxmas-images</code>.</footer>
   </div>
 
-</div>
-
 <script>
-const CONFIG = {
-  owner: "dwayne-dibley",
-  repo: "FUXMAS_7",
-  path: "" // root folder
-};
+/*
+  CONFIGURATION: Your Supabase project details (provided)
+*/
+const SUPABASE_URL = "https://dmqgpcsubaegmdaptici.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRtcWdwY3N1YmFlZ21kYXB0aWNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODM2OTIsImV4cCI6MjA3OTU1OTY5Mn0.dMbp4f1xBxrBAc1Coh7FV1fTBjiSG3yfBcRerUCS6ko";
 
-let images = [];
-let current = 0;
-let playing = true;
-let slideInterval = null;
-let reloadInterval = null;
+const BUCKET = "fuxmas-images";
+const SIGNED_URL_EXPIRES = 3600; // seconds (1 hour)
+const IMAGE_REFRESH_MS = 30000;   // 30 seconds
+const SLIDE_INTERVAL_MS = 10000;  // 10 seconds
 
+// Initialize Supabase client
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// UI elements
 const slideImg = document.getElementById('slideImg');
 const placeholder = document.getElementById('placeholder');
 const imageCounter = document.getElementById('imageCounter');
+const fileInput = document.getElementById('fileInput');
+const uploadOpenBtn = document.getElementById('uploadOpenBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const reloadBtn = document.getElementById('reloadBtn');
 
-async function loadImages() {
-  const apiUrl = `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.path}`;
-  try {
-    const resp = await fetch(apiUrl, {cache: "no-store"});
-    const data = await resp.json();
-    images = data
-      .filter(f => f.type === "file" && /\.(png|jpg|jpeg)$/i.test(f.name))
-      .map(f => f.download_url);
-  } catch (e) {
-    console.error(e);
-  }
-  show(current);
+let images = []; // array of {name, signedUrl}
+let current = 0;
+let playing = true;
+let slideTimer = null;
+let reloadTimer = null;
+
+// --- Helpers ---
+function showPlaceholder() {
+  placeholder.style.display = 'block';
+  slideImg.style.display = 'none';
+  imageCounter.textContent = '0 images';
 }
-
-function show(index) {
-  if (images.length === 0) {
-    placeholder.style.display = "block";
-    slideImg.style.display = "none";
-    imageCounter.textContent = "0 images";
-    return;
-  }
-  current = (index + images.length) % images.length;
-  slideImg.src = images[current];
-  slideImg.style.display = "block";
-  placeholder.style.display = "none";
+function showImage(idx){
+  if(images.length === 0){ showPlaceholder(); return; }
+  current = ((idx % images.length) + images.length) % images.length;
+  slideImg.src = images[current].signedUrl;
+  slideImg.alt = images[current].name;
+  slideImg.style.display = 'block';
+  placeholder.style.display = 'none';
   imageCounter.textContent = `${current+1} / ${images.length}`;
 }
 
-function next() { show(current + 1); }
-function prev() { show(current - 1); }
+// --- Storage: list files and create signed urls ---
+async function refreshImageList(){
+  try {
+    // list files in the bucket root
+    const { data, error, status } = await supabaseClient.storage.from(BUCKET).list('', {limit: 100, sortBy: { column: 'name', order: 'asc' }});
+    if (error && status !== 406) { console.error('List error', error); return; }
+    if (!data || data.length === 0) { images = []; showPlaceholder(); return; }
 
-function startSlideShow() {
-  slideInterval = setInterval(next, 10000);
-}
-function stopSlideShow() {
-  clearInterval(slideInterval);
-}
-function togglePlay() {
-  playing = !playing;
-  document.getElementById('playPauseBtn').textContent = playing ? "Pause" : "Play";
-  if (playing) startSlideShow(); else stopSlideShow();
+    // filter to PNG/JPG/JPEG
+    const files = data.filter(f => /\.(png|jpe?g)$/i.test(f.name));
+    // For each file we ask Supabase for a signed URL
+    const signedPromises = files.map(async f => {
+      // createSignedUrl requires SELECT permission on objects for the anon role (see notes).
+      const { data: signedData, error: signErr } = await supabaseClient.storage.from(BUCKET).createSignedUrl(f.name, SIGNED_URL_EXPIRES);
+      if (signErr) {
+        console.warn('createSignedUrl error for', f.name, signErr);
+        return null;
+      }
+      return { name: f.name, signedUrl: signedData.signedUrl, updated_at: f.updated_at || '' };
+    });
+
+    const signedResults = await Promise.all(signedPromises);
+    images = signedResults.filter(Boolean);
+    // sort by name (or updated_at) if you prefer:
+    images.sort((a,b) => a.name.localeCompare(b.name));
+    if(images.length === 0) { showPlaceholder(); return; }
+    // If current index out of range, reset to 0
+    if (current >= images.length) current = 0;
+    showImage(current);
+  } catch (err) {
+    console.error('refreshImageList error', err);
+  }
 }
 
-document.getElementById('nextBtn').onclick = () => { next(); };
-document.getElementById('prevBtn').onclick = () => { prev(); };
-document.getElementById('playPauseBtn').onclick = togglePlay;
-document.getElementById('reloadBtn').onclick = loadImages;
+// --- Uploading ---
+async function uploadFiles(fileList){
+  if(!fileList || fileList.length === 0) return;
+  for(const file of fileList){
+    // Limit file size to 20 MB in client
+    if(file.size > 20 * 1024 * 1024){ alert(`File ${file.name} too large (max 20MB).`); continue; }
 
+    // create a safe filename with timestamp prefix to avoid collisions
+    const timestamp = Date.now();
+    const safeName = `${timestamp}__${file.name.replace(/\s+/g,'_')}`;
+
+    try {
+      const { data, error } = await supabaseClient.storage.from(BUCKET).upload(safeName, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+      if (error) {
+        console.error('Upload error', error);
+        alert('Upload failed: ' + (error.message || 'unknown'));
+      } else {
+        // Optionally refresh the list immediately after successful upload
+        await refreshImageList();
+      }
+    } catch (err) {
+      console.error('uploadFiles error', err);
+    }
+  }
+}
+
+// --- Slideshow controls ---
+function nextImage(){ if(images.length) showImage(current+1); }
+function prevImage(){ if(images.length) showImage(current-1); }
+function startSlideshow(){ stopSlideshow(); slideTimer = setInterval(nextImage, SLIDE_INTERVAL_MS); playing = true; playPauseBtn.textContent = 'Pause'; }
+function stopSlideshow(){ if(slideTimer){ clearInterval(slideTimer); slideTimer = null; } playing = false; playPauseBtn.textContent = 'Play'; }
+function togglePlay(){ if(playing) stopSlideshow(); else startSlideshow(); }
+
+// UI hooks
+nextBtn.addEventListener('click', () => { nextImage(); if(playing){ stopSlideshow(); startSlideshow(); } });
+prevBtn.addEventListener('click', () => { prevImage(); if(playing){ stopSlideshow(); startSlideshow(); } });
+playPauseBtn.addEventListener('click', togglePlay);
+reloadBtn.addEventListener('click', refreshImageList);
+
+// file chooser UI
+uploadOpenBtn.addEventListener('click', ()=> fileInput.click());
+fileInput.addEventListener('change', (ev) => {
+  const files = Array.from(ev.target.files || []);
+  const imagesOnly = files.filter(f => /\.(png|jpe?g)$/i.test(f.name));
+  if(imagesOnly.length === 0) { alert('Select PNG or JPG/JPEG files'); return; }
+  uploadFiles(imagesOnly);
+  // clear input so same files can be selected again if needed
+  ev.target.value = '';
+});
+
+// initialization
 (async function init(){
-  await loadImages();
-  startSlideShow();
-  reloadInterval = setInterval(loadImages, 30000);
+  showPlaceholder();
+  await refreshImageList();
+  startSlideshow();
+  // auto refresh the list every IMAGE_REFRESH_MS
+  reloadTimer = setInterval(refreshImageList, IMAGE_REFRESH_MS);
 })();
 </script>
 </body>
